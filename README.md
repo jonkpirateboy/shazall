@@ -1,6 +1,9 @@
 # Shazall
 Shazam all music being played using a microphone
 
+So now you can see what song is playing on the radio, in the TV show or movie you're watching, on your turntable, what the DJ is playing, what's playing in the record shop, or whatever.
+And with the bonus feature of scrobbling everything, you don't have to fear that people don't know what exquisite in music you have when you're not streaming, it can be scrobbled anyway! ;)
+
 ## Stuff needed:
 * Raspberry Pi 3 or greater.
 * USB microphone. I used [MI-305](https://www.amazon.eg/-/en/MI-305-Mini-USB-Microphone-Black/dp/B0994PFKDD). I think most of these kinds of microphones work.
@@ -18,9 +21,7 @@ Go to `System options > Auto login` and select `Yes`
 
 Choose `Finish`
 
-Go to `Reboot > Yes` and select `Yes`
-
-After the reboot, SSH back into your Raspberry Pi and run the following commands to install stuff we need:
+Now, run the following commands to install stuff we need:
 
 ```
 sudo apt-get update
@@ -28,7 +29,7 @@ sudo apt-get upgrade
 sudo apt-get install raspberrypi-ui-mods git ffmpeg portaudio19-dev python3-pip
 ```
 
-To install support for the Scrren, enter the following commands:
+To install support for the Screen, enter the following commands:
 
 ```
 git clone https://github.com/goodtft/LCD-show.git
