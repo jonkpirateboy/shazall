@@ -1,0 +1,15 @@
+{
+    "duration": 10,
+    "samplerate": 44100,
+    "screen": {
+        "width": 480,
+        "height": 320
+    },
+    "lastfm": {
+        "scrobble": false,
+        "api_key": "",
+        "api_secret": "",
+        "session_key": "",
+        "username": ""
+    }
+}
