@@ -71,6 +71,8 @@ WantedBy=multi-user.target
 
 Change `[yourusername]` to your username.
 
+If you need to change the duration of how long Shazam should listen, the samplerate, or the screen resultion, you can do that in the `shazall-settings.json` file.
+
 Then add this code to make Shazall autostart on boot:
 
 ```
@@ -80,3 +82,27 @@ sudo systemctl start shazall.service
 ````
 
 And then reboot the machine and you sould see Shazall listening: `sudo reboot`
+
+### Bonus: Scrobble to Last.fm
+
+* [Create an API account with Last.fm](https://www.last.fm/api/account/create)
+* For `Application name`, choose whatever you like, for example `Shazall`. You don't need to fill out the rest.
+* SSH into your Raspberry Pi 
+* Edit the file `shazall-settings.json`, change `scrobble` to `true`, and enter your Last.fm credentials:
+
+```
+api_key = API key
+api_secret = Shared secret
+session_key = Leave empty
+username = Registered to
+````
+
+Save and exit and, then we continue:
+
+* Enter the venv: `source sazall/venv/bin/activate`
+* Enter this command: `python3 shazall-lastfm-get-session.py`
+* Answer the quiestions and the script will get your session_key saved to shazall-settings.json automatically
+
+Exit the venv: `deactivate`
+
+After reboot, or restart of the service, Shazall will scrobble to Last.fm. 
