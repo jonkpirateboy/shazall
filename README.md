@@ -50,31 +50,12 @@ cd shazall
 python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
-pip install sounddevice soundfile shazamio pydub pylast
+pip install sounddevice soundfile shazamio pydub pylast pillow
+deactivate
 sudo nano /etc/systemd/system/shazall.service
 ```
 
-In this file enter this code:
-```
-[Unit]
-Description=Show shazall on LCD via Python
-After=multi-user.target
-
-[Service]
-ExecStart=/home/[yourusername]]/shazall/venv/bin/python3 /home/[yourusername]/shazall/shazall.py
-WorkingDirectory=/home/[yourusername]/shazall
-StandardOutput=journal
-StandardError=journal
-Restart=on-failure
-User=[yourusername]
-Group=[yourusername]
-Environment=PYTHONUNBUFFERED=1
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Change `[yourusername]` to your username.
+In this file change `[yourusername]` to your username.
 
 If you need to change the duration of how long Shazam should listen, the samplerate, or the screen resultion, you can do that in the `shazall-settings.json` file.
 
