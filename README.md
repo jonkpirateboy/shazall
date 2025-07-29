@@ -13,8 +13,11 @@ Shazam all music being played using a microphone
 SSH into your Raspberry Pi and run the following command: `sudo raspi-config`
 
 Go to `Interface Options > SPI` and select `Yes`
+
 Go to `System options > Auto login` and select `Yes`
+
 Choose `Finish`
+
 Go to `Reboot > Yes` and select `Yes`
 
 After the reboot, SSH back into your Raspberry Pi and run the following commands to install stuff we need:
