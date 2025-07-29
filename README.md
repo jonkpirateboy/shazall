@@ -2,6 +2,7 @@
 Shazam all music being played using a microphone
 
 So now you can see what song is playing on the radio, in the TV show or movie you're watching, on your turntable, what the DJ is playing, what's playing in the record shop, or whatever.
+
 And with the bonus feature of scrobbling everything, you don't have to fear that people don't know what exquisite in music you have when you're not streaming, it can be scrobbled anyway! ;)
 
 ## Stuff needed:
