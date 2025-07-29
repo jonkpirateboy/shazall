@@ -3,13 +3,13 @@ Description=Show shazall on LCD via Python
 After=multi-user.target
 
 [Service]
-ExecStart=/usr/bin/python3 /home/jonk/shazall/shazall.py
-WorkingDirectory=/home/jonk/shazall
+ExecStart=/home/[yourusername]/shazall/venv/bin/python3 /home/[yourusername]/shazall/shazall.py
+WorkingDirectory=/home/[yourusername]/shazall
 StandardOutput=journal
 StandardError=journal
 Restart=on-failure
-User=jonk
-Group=jonk
+User=[yourusername]
+Group=[yourusername]
 
 [Install]
 WantedBy=multi-user.target
