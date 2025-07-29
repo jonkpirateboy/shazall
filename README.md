@@ -10,62 +10,73 @@ Shazam all music being played using a microphone
 
 [Install Raspberry Pi OS Lite](https://www.raspberrypi.com/documentation/computers/getting-started.html).
 
-SSH into your Raspberry Pi and run the following commands:
+SSH into your Raspberry Pi and run the following command: `sudo raspi-config`
+
+Go to `Interface Options > SPI` and select `Yes`
+Go to `System options > Auto login` and select `Yes`
+Choose `Finish`
+Go to `Reboot > Yes` and select `Yes`
+
+After the reboot, SSH back into your Raspberry Pi and run the following commands to install stuff we need:
 
 ```
-sudo raspi-config
-Interface Options > SPI > Yes
-System options > Auto login > Yes
-Finish
-Reboot > Yes
-```
-
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install raspberrypi-ui-mods git ffmpeg portaudio19-dev python3-pip
+```
 
+To install support for the Scrren, enter the following commands:
+
+```
 git clone https://github.com/goodtft/LCD-show.git
 cd LCD-show
 sudo ./LCD35-show
-Reboots automatically and should show the terminal login. If it's upside down:
-sudo nano /boot/config.txt
-Under [all], change "dtoverlay=tft35a:rotate=90" to:
-dtoverlay=tft35a:rotate=270
-sudo reboot
+```
 
+This reboots the machine automatically and should show the terminal login. If it's upside down enter this command: `sudo nano /boot/config.txt` and under `[all]`, change `dtoverlay=tft35a:rotate=90` to `dtoverlay=tft35a:rotate=270` and save. Then enter: `sudo reboot`
+
+Next up is the install of Shazall itself. 
+
+Enter the following commands:
+
+```
 git clone https://github.com/jonkpirateboy/shazall.git
-
 cd shazall
-
 python3 -m venv venv
-
 source venv/bin/activate
-
 pip install --upgrade pip
-
 pip install sounddevice soundfile shazamio pydub pylast
-
 sudo nano /etc/systemd/system/shazall.service
+```
 
+In this file enter this code:
+```
 [Unit]
 Description=Show shazall on LCD via Python
 After=multi-user.target
 
 [Service]
-ExecStart=/home/jonk/shazall/venv/bin/python3 /home/jonk/shazall/shazall.py
-WorkingDirectory=/home/jonk/shazall
+ExecStart=/home/[yourusername]]/shazall/venv/bin/python3 /home/[yourusername]/shazall/shazall.py
+WorkingDirectory=/home/[yourusername]/shazall
 StandardOutput=journal
 StandardError=journal
 Restart=on-failure
-User=jonk
-Group=jonk
+User=[yourusername]
+Group=[yourusername]
 Environment=PYTHONUNBUFFERED=1
 
 [Install]
 WantedBy=multi-user.target
+```
 
+Change `[yourusername]` to your username.
+
+Then add this code to make Shazall autostart on boot:
+
+```
 sudo systemctl daemon-reload
 sudo systemctl enable shazall.service
 sudo systemctl start shazall.service
+````
 
-sudo reboot
+And then reboot the machine and you sould see Shazall listening: `sudo reboot`
