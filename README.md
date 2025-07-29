@@ -1,6 +1,15 @@
 # shazall
 Shazam all music being played using a microphone
 
+Stuff needed:
+* Raspberry Pi 3 or greater.
+* USB microphone. I used [MI-305](https://www.amazon.eg/-/en/MI-305-Mini-USB-Microphone-Black/dp/B0994PFKDD). I think most of these kinds of screens work.
+* LCD Screen. I used [XPT2046](https://www.amazon.com/Resistive-compatible-Raspberry-Pi-Raspbian/dp/B00OZQS5NY) on RPi3 and [MHS-3.5inch RPi Display](https://www.lcdwiki.com/MHS-3.5inch_RPi_Display) on RPi4. I think most of these kinds of screens work.
+
+Install:
+
+I will make this more readable soon :)
+
 sudo raspi-config
 Interface Options > SPI > Yes
 System options > Auto login > Yes
