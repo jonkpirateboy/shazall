@@ -5,18 +5,24 @@ So now you can see what song is playing on the radio, in the TV show or movie yo
 
 And with the bonus feature of scrobbling everything, you don't have to fear that people don't know what exquisite in music you have when you're not streaming, it can be scrobbled anyway! ;)
 
+Expect the whole installation to take about 30 minutes.
+
 ## Stuff needed:
 * Raspberry Pi 3 or greater.
+* Power cable.
+* SD card.
 * USB microphone. I used [MI-305](https://www.amazon.eg/-/en/MI-305-Mini-USB-Microphone-Black/dp/B0994PFKDD). I think most of these kinds of microphones work.
 * LCD Screen. I used [XPT2046](https://www.amazon.com/Resistive-compatible-Raspberry-Pi-Raspbian/dp/B00OZQS5NY) on RPi3 and [MHS-3.5inch RPi Display](https://www.lcdwiki.com/MHS-3.5inch_RPi_Display) on RPi4. I think most of these kinds of screens work.
 
 ## Install
 
+Start by connecting the USB microphone and the LCD Screen to your Pi.
+
 ### OS
 
 [Install Raspberry Pi OS Lite](https://www.raspberrypi.com/documentation/computers/getting-started.html).
 
-When starting up your Raspberry Pi, the screen will not display anything, that will be fixed
+When starting up your Raspberry Pi, the screen will not display anything, that will be fixed in the [LCD screen](#lcd-screen) step.
 
 SSH into your Raspberry Pi and run the following command: `sudo raspi-config`
 
@@ -52,9 +58,9 @@ This reboots the machine automatically and should show the terminal login on the
 
 If it's upside down enter this command: `sudo nano /boot/config.txt` and under `[all]`, change `dtoverlay=tft35a:rotate=90` to `dtoverlay=tft35a:rotate=270` and save. Then enter: `sudo reboot`
 
-And this is a bit of a strange one. During the installation of LCD-show, raspi-config is uninstalled for some reason. So now it's time to reinstall it: `sudo apt-get install raspi-config`
+And this is a bit of a strange one: During the installation of LCD-show, raspi-config is uninstalled for some reason. So now it's time to reinstall it: `sudo apt-get install raspi-config`
 
-### Shazall
+### Shazall itself
 
 Next up is the install of Shazall itself. 
 
