@@ -33,7 +33,7 @@ sudo apt-get upgrade
 
 ### Packages
 
-Now, run the following commands to install stuff we need:
+Now, run the following command to install stuff we need:
 
 ```
 sudo apt-get install raspberrypi-ui-mods git ffmpeg portaudio19-dev python3-pip
