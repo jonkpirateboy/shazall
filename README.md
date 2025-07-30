@@ -40,6 +40,8 @@ sudo ./LCD35-show
 
 This reboots the machine automatically and should show the terminal login. If it's upside down enter this command: `sudo nano /boot/config.txt` and under `[all]`, change `dtoverlay=tft35a:rotate=90` to `dtoverlay=tft35a:rotate=270` and save. Then enter: `sudo reboot`
 
+And this is a bit of a strange one. During the installation of LCD-show, raspi-config is uninstalled for some reason. So now it's time to reinstall it: `sudo apt-get install raspi-config`
+
 Next up is the install of Shazall itself. 
 
 Enter the following commands:
@@ -52,6 +54,7 @@ source venv/bin/activate
 pip install --upgrade pip
 pip install sounddevice soundfile shazamio pydub pylast pillow
 deactivate
+sudo cp shazall.service /etc/systemd/system/
 sudo nano /etc/systemd/system/shazall.service
 ```
 
@@ -87,7 +90,7 @@ Save and exit and, then we continue:
 
 * Enter the venv: `source sazall/venv/bin/activate`
 * Enter this command: `python3 shazall-lastfm-get-session.py`
-* Answer the quiestions and the script will get your session_key saved to shazall-settings.json automatically
+* Enter your username and password when promted, and the script will get your session_key and seve it to shazall-settings.json automatically.
 
 Exit the venv: `deactivate`
 
