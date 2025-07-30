@@ -109,7 +109,7 @@ username = Registered to
 
 Save and exit and, then we continue:
 
-* Enter the venv: `source shzall/venv/bin/activate`
+* Enter the venv: `source shazall/venv/bin/activate`
 * Enter this command: `python3 shazall-lastfm-get-session.py`
 * Enter your username and password when promted, the script will retrieve your session key and save it to shazall-settings.json automatically.
 
