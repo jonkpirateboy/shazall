@@ -16,7 +16,7 @@ Expect the whole installation to take about 30 minutes.
 
 ## Install
 
-Start by connecting the USB microphone and the LCD Screen to your Pi.
+Start by connecting the USB microphone and the LCD screen to your Pi.
 
 ### OS
 
