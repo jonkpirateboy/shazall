@@ -39,8 +39,8 @@ Now, run the following command to install stuff we need:
 sudo apt-get install raspberrypi-ui-mods git ffmpeg portaudio19-dev python3-pip
 ```
 
-### Screen
-To install support for the Screen, enter the following commands:
+### LCD screen
+To install support for the LCD screen, enter the following commands:
 
 ```
 git clone https://github.com/goodtft/LCD-show.git
@@ -48,7 +48,9 @@ cd LCD-show
 sudo ./LCD35-show
 ```
 
-This reboots the machine automatically and should show the terminal login. If it's upside down enter this command: `sudo nano /boot/config.txt` and under `[all]`, change `dtoverlay=tft35a:rotate=90` to `dtoverlay=tft35a:rotate=270` and save. Then enter: `sudo reboot`
+This reboots the machine automatically and should show the terminal login on the LCD screen. 
+
+If it's upside down enter this command: `sudo nano /boot/config.txt` and under `[all]`, change `dtoverlay=tft35a:rotate=90` to `dtoverlay=tft35a:rotate=270` and save. Then enter: `sudo reboot`
 
 And this is a bit of a strange one. During the installation of LCD-show, raspi-config is uninstalled for some reason. So now it's time to reinstall it: `sudo apt-get install raspi-config`
 
