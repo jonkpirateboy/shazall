@@ -98,7 +98,9 @@ And then reboot the machine and you sould see Shazall listening: `sudo reboot`
 * [Create an API account with Last.fm](https://www.last.fm/api/account/create)
 * For `Application name`, choose whatever you like, for example `Shazall`. You don't need to fill out the rest.
 * SSH into your Raspberry Pi 
-* Edit the file `shazall-settings.json`, change `scrobble` to `true`, and enter your Last.fm credentials:
+* Edit the file shazall-settings.json by running the command: `sudo nano shazall/shazall-settings.json`
+* Change `scrobble` to `true`
+* And enter your Last.fm credentials:
 
 ```
 api_key = API key
