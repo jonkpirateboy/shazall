@@ -20,7 +20,7 @@ Start by connecting the USB microphone and the LCD Screen to your Pi.
 
 ### OS
 
-[Install Raspberry Pi OS Lite](https://www.raspberrypi.com/documentation/computers/getting-started.html).
+[Install Raspberry Pi OS Lite](https://www.raspberrypi.com/documentation/computers/getting-started.html), and make sure to enable SSH.
 
 When starting up your Raspberry Pi, the screen will not display anything, that will be fixed in the [LCD screen](#lcd-screen) step.
 
