@@ -12,7 +12,11 @@ And with the bonus feature of scrobbling everything, you don't have to fear that
 
 ## Install
 
+### OS
+
 [Install Raspberry Pi OS Lite](https://www.raspberrypi.com/documentation/computers/getting-started.html).
+
+When starting up your Raspberry Pi, the screen will not display anything, that will be fixed
 
 SSH into your Raspberry Pi and run the following command: `sudo raspi-config`
 
@@ -22,14 +26,20 @@ Go to `System options > Auto login` and select `Yes`
 
 Choose `Finish`
 
-Now, run the following commands to install stuff we need:
-
 ```
 sudo apt-get update
 sudo apt-get upgrade
+```
+
+### Packages
+
+Now, run the following commands to install stuff we need:
+
+```
 sudo apt-get install raspberrypi-ui-mods git ffmpeg portaudio19-dev python3-pip
 ```
 
+### Screen
 To install support for the Screen, enter the following commands:
 
 ```
@@ -41,6 +51,8 @@ sudo ./LCD35-show
 This reboots the machine automatically and should show the terminal login. If it's upside down enter this command: `sudo nano /boot/config.txt` and under `[all]`, change `dtoverlay=tft35a:rotate=90` to `dtoverlay=tft35a:rotate=270` and save. Then enter: `sudo reboot`
 
 And this is a bit of a strange one. During the installation of LCD-show, raspi-config is uninstalled for some reason. So now it's time to reinstall it: `sudo apt-get install raspi-config`
+
+### Shazall
 
 Next up is the install of Shazall itself. 
 
