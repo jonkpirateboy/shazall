@@ -1,5 +1,6 @@
 # Shazall
-Shazam all music being played using a microphone
+
+Identify all music being played using a microphone.
 
 So now you can see what song is playing on the radio, in the TV show or movie you're watching, on your turntable, what the DJ is playing, what's playing in the record shop, or whatever.
 
