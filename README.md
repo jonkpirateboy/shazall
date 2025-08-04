@@ -8,6 +8,8 @@ And with the bonus feature of scrobbling everything, you no longer have to worry
 
 Expect the whole installation to take about 30 minutes.
 
+UPDATE: Added the possibility to show cover art, both a small image of the cover and a blurred darkened background of the same image.
+
 ## Stuff needed:
 * Raspberry Pi 3 or greater.
 * Power cable.

@@ -4,7 +4,7 @@ import sounddevice as sd
 import soundfile as sf
 from pydub import AudioSegment
 from shazamio import Shazam
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter
 import numpy as np
 import json
 import pylast
@@ -33,8 +33,7 @@ try:
 
     if COVER:
         COVER_SIZE = cover.get("size", 100)
-        # COVER_POSITION = cover["position"]
-        # COVER_BACKGROUND = cover["background"]
+        COVER_BACKGROUND = cover.get("background", False)
 
     if SCROBBLE:
         API_KEY = lastfm["api_key"]
@@ -112,7 +111,12 @@ def draw_to_lcd(title, artist="", status="", spacing=10, cover_img=None):
         artist = str(artist)
         status = str(status)
 
-        img = Image.new("RGB", (WIDTH, HEIGHT), "black")
+        if cover_img and COVER and COVER_BACKGROUND:
+            bg = cover_img.resize((WIDTH, HEIGHT)).filter(ImageFilter.GaussianBlur(20))
+            enhancer = ImageEnhance.Brightness(bg)
+            img = enhancer.enhance(0.5)  # Darken the background
+        else:
+            img = Image.new("RGB", (WIDTH, HEIGHT), "black")
         draw = ImageDraw.Draw(img)
 
         title_lines = wrap_text(draw, title, font_main, WIDTH - 40)
@@ -121,7 +125,7 @@ def draw_to_lcd(title, artist="", status="", spacing=10, cover_img=None):
 
         title_height = sum([get_text_size(draw, l, font_main)[1] + spacing for l in title_lines])
         artist_height = sum([get_text_size(draw, l, font_main)[1] + spacing for l in artist_lines])
-        status_height = get_text_size(draw, status, font_status)[1] + spacing if status else 0
+        status_height = get_text_size(draw, "Listening, Identifying, Match failed", font_status)[1] + spacing
 
         cover_size = COVER_SIZE if cover_img else 0
         cover_spacing = spacing * 2 if cover_img else 0

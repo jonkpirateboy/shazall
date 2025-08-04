@@ -7,7 +7,8 @@
     },
     "cover": {
         "use": true,
-        "size": 100
+        "size": 100,
+        "background": false
     },
     "lastfm": {
         "scrobble": false,
