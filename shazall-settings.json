@@ -8,7 +8,8 @@
     "cover": {
         "use": true,
         "size": 100,
-        "background": false
+        "background": true,
+        "foreground": true
     },
     "lastfm": {
         "scrobble": false,
