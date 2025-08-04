@@ -5,6 +5,10 @@
         "width": 480,
         "height": 320
     },
+    "cover": {
+        "use": true,
+        "size": 100
+    },
     "lastfm": {
         "scrobble": false,
         "api_key": "",

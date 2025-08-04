@@ -32,9 +32,8 @@ try:
     SCROBBLE = lastfm.get("scrobble", False)
 
     if COVER:
-        COVER_SIZE = cover.get("size", 100)
-        # COVER_POSITION = cover["position"]
-        # COVER_BACKGROUND = cover["background"]
+        COVER_POSITION = cover["position"]
+        COVER_BACKGROUND = cover["background"]
 
     if SCROBBLE:
         API_KEY = lastfm["api_key"]
@@ -56,11 +55,11 @@ last_title = ""
 last_artist = ""
 last_cover = None
 
-# LCD dimensions and fonts
+# LCD fonts
 font_main = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 24)
 font_status = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 18)
 
-# Text size helper for Pillow >= 10
+# Text size helper (safe)
 def get_text_size(draw, text, font):
     try:
         text = str(text)
@@ -71,7 +70,7 @@ def get_text_size(draw, text, font):
     except Exception:
         return 0, 0
 
-# Helper functions for LCD display
+# Text wrapping
 def wrap_text(draw, text, font, max_width):
     lines = []
     words = str(text).split()
@@ -115,39 +114,40 @@ def draw_to_lcd(title, artist="", status="", spacing=10, cover_img=None):
         img = Image.new("RGB", (WIDTH, HEIGHT), "black")
         draw = ImageDraw.Draw(img)
 
+        if cover_img:
+            cover_size = 100
+            cover_img = cover_img.resize((cover_size, cover_size))
+            cover_x = (WIDTH - cover_size) // 2
+            img.paste(cover_img, (cover_x, 10))
+            top_y = cover_size + 20
+        else:
+            top_y = 10
+
         title_lines = wrap_text(draw, title, font_main, WIDTH - 40)
         artist_lines = wrap_text(draw, f"by {artist}" if artist else "", font_main, WIDTH - 40)
         status_line = [status] if status else []
 
         title_height = sum([get_text_size(draw, l, font_main)[1] + spacing for l in title_lines])
         artist_height = sum([get_text_size(draw, l, font_main)[1] + spacing for l in artist_lines])
-        status_height = get_text_size(draw, status, font_status)[1] + spacing if status else 0
+        status_height = get_text_size(draw, status, font_status)[1] if status else 0
 
-        cover_size = COVER_SIZE if cover_img else 0
-        cover_spacing = spacing * 2 if cover_img else 0
-
-        total_height = cover_size + cover_spacing + title_height + artist_height + status_height
-
-        top_y = (HEIGHT - total_height) // 2
-
-        if cover_img:
-            cover_img = cover_img.resize((cover_size, cover_size))
-            cover_x = (WIDTH - cover_size) // 2
-            img.paste(cover_img, (cover_x, top_y))
-            top_y += cover_size + cover_spacing
+        total_height = title_height + artist_height + status_height + 20
+        if not cover_img:
+            top_y = (HEIGHT - total_height) // 2
 
         draw_centered_lines(draw, title_lines, font_main, top_y)
         draw_centered_lines(draw, artist_lines, font_main, top_y + title_height)
         if status:
-            draw_centered_lines(draw, status_line, font_status, top_y + title_height + artist_height)
+            draw_centered_lines(draw, status_line, font_status, top_y + title_height + artist_height + 10)
 
         rgb565 = rgb888_to_rgb565(img)
         with open("/dev/fb1", "wb") as f:
             f.write(rgb565.tobytes())
-    except Exception as e:
-        draw_to_lcd("Error LCD", "", str(e))
+    except Exception:
+        # Fallback: screen stays black if something goes wrong
+        pass
 
-# Last.fm scrobbling
+# Last.fm scrobble
 def scrobble_track(artist, title):
     if not SCROBBLE or not lastfm_network:
         return
@@ -158,9 +158,9 @@ def scrobble_track(artist, title):
     except Exception:
         pass
 
-# Audio and Shazam logic
+# Record audio
 def record_audio():
-    draw_to_lcd(last_title, last_artist, "Listening", cover_img=last_cover)
+    draw_to_lcd(last_title, last_artist, "Listening", last_cover)
     audio = sd.rec(int(DURATION * SAMPLERATE), samplerate=SAMPLERATE, channels=1)
     sd.wait()
     sf.write(FILENAME, audio, SAMPLERATE)
@@ -169,11 +169,11 @@ def record_audio():
 async def identify_song():
     global last_title, last_artist, last_cover, DURATION
 
-    draw_to_lcd(last_title, last_artist, "Identifying", cover_img=last_cover)
+    draw_to_lcd(last_title, last_artist, "Identifying", last_cover)
 
     shazam = Shazam()
     audio = AudioSegment.from_wav(FILENAME)
-    audio = audio.set_channels(2).set_frame_rate(SAMPLERATE)
+    audio = audio.set_channels(2).set_frame_rate(44100)
     stereo_filename = "stereo_recording.wav"
     audio.export(stereo_filename, format="wav")
 
@@ -203,7 +203,7 @@ async def identify_song():
             draw_to_lcd(title, artist, "Still playing", cover_img=cover_img)
     else:
         DURATION = min(DURATION + 10, 30)
-        draw_to_lcd(last_title, last_artist, "Match failed", cover_img=last_cover)
+        draw_to_lcd(last_title, last_artist, f"Match failed ({DURATION}s)", cover_img=last_cover)
         time.sleep(1)
 
 # Main loop
