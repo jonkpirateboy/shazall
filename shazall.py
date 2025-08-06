@@ -201,10 +201,12 @@ async def identify_song():
             last_title = title
             last_artist = artist
             last_cover = cover_img
-            draw_to_lcd(title, artist, "Playing", cover_img=cover_img)
             scrobble_track(artist, title)
+            draw_to_lcd(title, artist, "Playing", cover_img=cover_img)
+            time.sleep(1)
         else:
             draw_to_lcd(title, artist, "Still playing", cover_img=cover_img)
+            time.sleep(1)
     else:
         DURATION = min(DURATION + 10, 30)
         draw_to_lcd(last_title, last_artist, "Match failed", cover_img=last_cover)
