@@ -77,7 +77,7 @@ source venv/bin/activate
 pip install --upgrade pip
 pip install sounddevice soundfile shazamio pydub pylast pillow requests
 deactivate
-sudo cp shazall.service /etc/systemd/system/
+sudo mv shazall.service /etc/systemd/system/
 sudo nano /etc/systemd/system/shazall.service
 ```
 
